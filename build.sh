@@ -6,7 +6,6 @@ if [ $# -le 0 ]; then
     echo "Usage:" $0  " [filename]  [cpp source] (optional) where \"filename\" is an .asm file"
     exit
 else
-    echo "ONE =  " $1
     asmfile=$1
     exename="${1%%.*}"
     obj=${exename}.o
