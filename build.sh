@@ -3,7 +3,7 @@
 
 if [ $# -le 0 ]; then
     echo  "le = " $#
-    echo "Usage:" $0  " [filename]  [cpp source] (optional) where \"filename\" is an .asm file"
+    echo "Usage:" $0  " [filename]  [cpp source] (optional)  where \"filename\" is an .asm file"
     exit
 else
     asmfile=$1
@@ -35,7 +35,7 @@ else
     if [ $ret -ne 0 ]; then 
         echo "GCC error"
     else
-        ./$exename 
+        ./$exename  
     fi
     
 fi
