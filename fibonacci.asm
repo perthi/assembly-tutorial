@@ -14,6 +14,7 @@ main:
         xor     rax, rax                ; rax will hold the current number
         xor     rbx, rbx                ; rbx will hold the next number
         inc     rbx                     ; rbx is originally 1
+
 print:
         ; We need to call printf, but we are using rax, rbx, and rcx.  printf
         ; may destroy rax and rcx so we will save these before the call and
@@ -28,16 +29,13 @@ print:
 
         ; Stack is already aligned because we pushed three 8 byte registers
         call    printf                 ; printf(format, current_number)
-
         pop     rcx                     ; restore caller-save register
         pop     rax                     ; restore caller-save register
-
         mov     rdx, rax                ; save the current number
         mov     rax, rbx                ; next number is now current
         add     rbx, rdx                ; get the new next number
         dec     ecx                     ; count down
         jnz     print                   ; if not done counting, do some more
-
         pop     rbx                     ; restore rbx before returning
         ret
 format:
