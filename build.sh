@@ -1,8 +1,9 @@
 #!/bin/bash
 #nasm -felf64 main.asm
 
-if [ $# -ne 1 ]; then
-    echo "Usage:" $0  " [filename] where \"filename\" is an .asm file"
+if [ $# -le 0 ]; then
+    echo  "le = " $#
+    echo "Usage:" $0  " [filename]  [cpp source] (optional) where \"filename\" is an .asm file"
     exit
 else
     echo "ONE =  " $1
@@ -11,6 +12,11 @@ else
     obj=${exename}.o
 fi
 
+
+if [ $# -eq 2 ]; then
+    csource=$2
+    cobj="${2%%.*}".o
+fi
 
 
 echo "filename = " $filename
@@ -23,6 +29,20 @@ ret=$?
 if [ $ret -ne 0 ]; then
     echo "Error assemling " $asmfile "( ret = " $ret " )"
 else
-    gcc -static  $obj -o $exename  
-    ./$exename
+    if [ $# -eq 1 ]; then
+        gcc -static  $obj -o $exename
+    elif [  $# -eq 2 ]; then
+        gcc -static  $csource   $obj -o $exename 
+    fi
+
+    ret=$?
+    if [ $ret -ne 0 ]; then 
+        echo "GCC error"
+    else
+        ./$exename 
+    fi
+    
 fi
+
+echo  "csource = "  $csource
+echo  "cobj ="  $cobj
