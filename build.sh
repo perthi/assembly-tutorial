@@ -19,9 +19,6 @@ if [ $# -eq 2 ]; then
 fi
 
 
-echo "filename = " $filename
-
-
 nasm -f elf64 $asmfile
 
 ret=$?
@@ -44,5 +41,3 @@ else
     
 fi
 
-echo  "csource = "  $csource
-echo  "cobj ="  $cobj
